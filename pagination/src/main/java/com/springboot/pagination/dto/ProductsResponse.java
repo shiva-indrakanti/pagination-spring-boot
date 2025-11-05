@@ -1,18 +1,6 @@
-package com.springboot.pagination.entity;
+package com.springboot.pagination.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="products")
-public class Product {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class ProductsResponse {
 	private String name;
 	private String description;
 	private String category;
@@ -20,12 +8,7 @@ public class Product {
 	private Double ratings;
 	private Integer stockQuantity;
 	private Boolean isActive;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -69,16 +52,4 @@ public class Product {
 		this.isActive = isActive;
 	}
 	
-	public Product(Long id, String name, String description, String category, String brand, Double ratings,
-			Integer stockQuantity, Boolean isActive) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.category = category;
-		this.brand = brand;
-		this.ratings = ratings;
-		this.stockQuantity = stockQuantity;
-		this.isActive = isActive;
-	}
 }

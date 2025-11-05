@@ -1,3 +1,7 @@
-/mvnw text eol=lf
-* text=auto
+# Enforce LF for most text files
+* text=auto eol=lf
+
+# Windows scripts should keep CRLF
 *.cmd text eol=crlf
+*.bat text eol=crlf
+

@@ -81,4 +81,6 @@ public class Product {
 		this.stockQuantity = stockQuantity;
 		this.isActive = isActive;
 	}
+	public Product() {
+	}
 }

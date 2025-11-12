@@ -2,10 +2,12 @@ package com.springboot.pagination.service;
 
 import java.util.List;
 
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.springboot.pagination.dto.ProductRequest;
@@ -32,8 +34,18 @@ public class PaginationService {
 		return DtoMapper.productsResponseListDtoMapper(listofProductsFromMapper);
 	}
 
-	public List<ProductsResponse> fetchProductsPerPage(int pageNo, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize);
-		return DtoMapper.productsResponseListDtoMapper(iPagination.findAll(pageable).getContent());
+	public List<ProductsResponse> fetchProducts(int pageNo, int pageSize, String sortBy, String sortDir, String name,
+			String description) {
+		Sort sort = null;
+		if("ASC".equalsIgnoreCase(sortDir)) {
+			sort = Sort.by(sortBy).ascending();
+		}else {
+			sort = Sort.by(sortBy).descending();
+		}
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize,sort);
+		//Specification<Product> specification = null;
+		Page<Product> products = iPagination.findAll(pageable);
+		return DtoMapper.productsResponseListDtoMapper(products.getContent());
 	}
 }

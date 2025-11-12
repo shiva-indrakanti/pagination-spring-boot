@@ -36,11 +36,14 @@ public class PaginationController {
 		return ResponseEntity.status(HttpStatus.OK).header("Products-Total-Count", String.valueOf(products.size())).body(products);
 	}
 	
-	@GetMapping("/list/size")
+	@GetMapping("/list/custom/search")
 	public ResponseEntity<List<ProductsResponse>> getProductsPerPage(@RequestParam(defaultValue = "1") int pageNo,
-			                                                                @RequestParam(defaultValue = "5") int pageSize){
-		List<ProductsResponse> products = service.fetchProductsPerPage(pageNo - 1,pageSize);
+			                                                         @RequestParam(defaultValue = "5") int pageSize,
+			                                                         @RequestParam(defaultValue = "id") String sortBy,
+                                                                     @RequestParam(defaultValue = "ASC") String sortDir,
+                                                                     @RequestParam(defaultValue="") String name,
+                                                                     @RequestParam(defaultValue="") String category){
+		List<ProductsResponse> products = service.fetchProducts(pageNo - 1,pageSize,sortBy,sortDir,name,category);
 		return ResponseEntity.status(HttpStatus.OK).header("Products-Total-Count", String.valueOf(products.size())).body(products);
 	}
-	
 }
